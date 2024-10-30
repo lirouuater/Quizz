@@ -257,22 +257,26 @@ function createQuestion(i) {
     //inserindo as alternativas//
 
     question[i].answers.forEach(function(answer, i) {
+        
 
         //template do botão do quizz
 
-        const answerTemplate = document.querySelector('.answer-template').cloneNode(true);
+        question[i].answers.forEach(function(answer, i) {
+            // Clonar o template dentro do loop
+            const answerTemplate = document.querySelector('.answer-template').cloneNode(true);
         
+            // ... restante do código para configurar o template clonad
 
 
         console.log(answerTemplate);    
     });
 
+    question[i].answers.forEach((answer, i) => {
+        // Clonar o template dentro do loop
+        const answerTemplate = document.querySelector('.answer-template').cloneNode(true);
 
-
-
-
-
-};
+        // ... restante do código para configurar o template clonado
+    });
 
 
 //inicialização do Quizz//
