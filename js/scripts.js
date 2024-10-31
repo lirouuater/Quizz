@@ -1,13 +1,11 @@
-//declarando variáveis//
 const question = document.querySelector('#question');
 const answersBox = document.querySelector('#answers-box');
 const quizzContainer = document.querySelector('#quizz-container');
 const scoreContainer = document.querySelector('#score-container');
-const letters = ['a','b','c','d'];
+const restartButton = document.querySelector('#restart'); // Seleciona o botão de reiniciar
+const letters = ['a', 'b', 'c', 'd'];
 let points = 0;
 let actualQuestion = 0;
-
-
 //perguntas//
 
 const questions = [
@@ -231,10 +229,14 @@ const questions = [
 ]
 
 // Initialize quiz
+// Inicializa o quiz
 function init() {
-    createQuestion(actualQuestion);
+    points = 0; // Reinicia os pontos
+    actualQuestion = 0; // Reinicia a pergunta atual
+    scoreContainer.classList.add('hide'); // Esconde o container de pontuação
+    quizzContainer.classList.remove('hide'); // Mostra o container do quiz
+    createQuestion(actualQuestion); // Cria a primeira pergunta
 }
-
 // Create a question
 function createQuestion(i) {
     // Clear previous question
@@ -279,8 +281,10 @@ function createQuestion(i) {
                 createQuestion(actualQuestion);
             } else {
                 displayScore();
-            }
+            }   
         });
+
+        
     });
 }
 
@@ -296,6 +300,11 @@ function displayScore() {
     correctAnswers.textContent = points;
     questionsQty.textContent = questions.length;
 }
+// Adiciona o evento de clique ao botão de reiniciar
+restartButton.addEventListener('click', init);
+
+
+
 
 // Start the quiz
 init();
