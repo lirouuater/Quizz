@@ -230,33 +230,72 @@ const questions = [
     }
 ]
 
-//Substituição do quizz para a primeira pergunta//
+// Initialize quiz
 function init() {
-    //criar a primeira pergunta
-    createQuestion(0);
+    createQuestion(actualQuestion);
 }
 
-//Cria uma pergunta//
-
+// Create a question
 function createQuestion(i) {
+    // Clear previous question
+    const oldButtons = answersBox.querySelectorAll('button');
+    oldButtons.forEach(btn => btn.remove());
 
-    //limpar a questão anterior
-    const OldButtons = answersBox.querySelectorAll('button');
-
-    OldButtons.forEach(function(btn) {
-        btn.remove();
-    });
-
-
-    //alterar o texto da pergunta 
+    // Update question text
     const questionText = question.querySelector('#question-text');
     const questionNumber = question.querySelector('#question-number');
 
     questionText.textContent = questions[i].question;
     questionNumber.textContent = i + 1;
 
-    //inserindo as alternativas//
+    // Insert answers
+    questions[i].answers.forEach((answer, index) => {
+        // Clone the answer template
+        const answerTemplate = document.querySelector('.answer-template').cloneNode(true);
+        const letterBtn = answerTemplate.querySelector('.btn-letter');
+        const answerText = answerTemplate.querySelector('.question-answer');
+
+        letterBtn.textContent = letters[index];
+        answerText.textContent = answer['answer'];
+
+        // Set correct answer attribute
+        answerTemplate.setAttribute('correct-answer', answer['correct']);
+
+        // Remove hide and template classes
+        answerTemplate.classList.remove('hide');
+        answerTemplate.classList.remove('answer-template');
+
+        // Append to answers box
+        answersBox.appendChild(answerTemplate);
+
+        // Add click event listener
+        answerTemplate.addEventListener('click', function () {
+            const isCorrect = this.getAttribute('correct-answer') === 'true';
+            if (isCorrect) {
+                points++;
+            }
+            actualQuestion++;
+            if (actualQuestion < questions.length) {
+                createQuestion(actualQuestion);
+            } else {
+                displayScore();
+            }
+        });
+    });
 }
 
-//inicialização do quizz
+// Display final score
+function displayScore() {
+    quizzContainer.classList.add('hide');
+    scoreContainer.classList.remove('hide');
+    const displayScore = document.querySelector('#display-score');
+    const correctAnswers = document.querySelector('#correct-answers');
+    const questionsQty = document.querySelector('#questions-qty');
+
+    displayScore.textContent = ((points / questions.length) * 100).toFixed(0);
+    correctAnswers.textContent = points;
+    questionsQty.textContent = questions.length;
+}
+
+// Start the quiz
 init();
