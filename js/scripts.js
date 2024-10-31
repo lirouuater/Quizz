@@ -233,7 +233,7 @@ const questions = [
 //Substituição do quizz para a primeira pergunta//
 function init() {
     //criar a primeira pergunta
-    createQuestion(0)
+    createQuestion(0);
 }
 
 //Cria uma pergunta//
@@ -241,11 +241,12 @@ function init() {
 function createQuestion(i) {
 
     //limpar a questão anterior
-    const oldButtons = answersBox.querySelectorAll('button');
+    const OldButtons = answersBox.querySelectorAll('button');
 
-    oldButtons.forEach(function(btn) {
+    OldButtons.forEach(function(btn) {
         btn.remove();
     });
+
 
     //alterar o texto da pergunta 
     const questionText = question.querySelector('#question-text');
@@ -255,29 +256,7 @@ function createQuestion(i) {
     questionNumber.textContent = i + 1;
 
     //inserindo as alternativas//
+}
 
-    question[i].answers.forEach(function(answer, i) {
-        
-
-        //template do botão do quizz
-
-        question[i].answers.forEach(function(answer, i) {
-            // Clonar o template dentro do loop
-            const answerTemplate = document.querySelector('.answer-template').cloneNode(true);
-        
-            // ... restante do código para configurar o template clonad
-
-
-        console.log(answerTemplate);    
-    });
-
-    question[i].answers.forEach((answer, i) => {
-        // Clonar o template dentro do loop
-        const answerTemplate = document.querySelector('.answer-template').cloneNode(true);
-
-        // ... restante do código para configurar o template clonado
-    });
-
-
-//inicialização do Quizz//
+//inicialização do quizz
 init();
